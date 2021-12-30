@@ -34,7 +34,7 @@ for process in "${processes[@]}"; do
 done
 
 INFO "Starting code-server"
-/usr/lib/code-server/bin/code-server --bind-addr 0.0.0.0:8080 --auth none
+/usr/lib/code-server/bin/code-server --bind-addr 0.0.0.0:2633 --auth none
 
 # Wait processes to be running
 /bin/bash
