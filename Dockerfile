@@ -2,13 +2,14 @@ FROM ubuntu:20.04
 
 RUN apt update \
     && apt install -y ca-certificates openssh-client \
-    wget curl iptables supervisor \
+    wget curl iptables supervisor git\
     && rm -rf /var/lib/apt/list/*
 
 ENV DOCKER_CHANNEL=stable \
 	DOCKER_VERSION=20.10.9 \
 	DOCKER_COMPOSE_VERSION=1.29.2 \
-	DEBUG=false
+	DEBUG=false \
+    VERSION=3.12.0
 
 # Docker installation
 RUN set -eux; \
@@ -52,5 +53,12 @@ VOLUME /var/lib/docker
 RUN curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
 	&& chmod +x /usr/local/bin/docker-compose && docker-compose version
 
+RUN \
+   wget https://github.com/cdr/code-server/releases/download/v$VERSION/code-server-$VERSION-linux-amd64.tar.gz && \
+   tar x -zf code-server-$VERSION-linux-amd64.tar.gz && \
+   rm code-server-$VERSION-linux-amd64.tar.gz && \
+   mv code-server-$VERSION-linux-amd64 /usr/lib/code-server 
+
 ENTRYPOINT ["startup.sh"]
 CMD ["sh"]
+
