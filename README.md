@@ -34,7 +34,8 @@ I've created this repo for two reasons:
 ## How to use it
 
 ```
-docker run -it --privileged cruizba/ubuntu-dind
+docker run --privileged --network host -d -p 2633:2633 --name vscode vscode-dind
+
 ```
 
 This will run a bash with a complete docker separated from your host to build, run and push docker images.
