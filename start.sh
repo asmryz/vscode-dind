@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo rm -f /var/run/docker.pid /var/run/docker.sock
 # Start Docker daemon in background
 sudo dockerd > /tmp/dockerd.log 2>&1 &
 
